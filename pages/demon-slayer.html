@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Demon Slayer — AnimeMIX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* page styling */
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0c1c2c;
+      color: #fff;
+      font-family: sans-serif;
+      line-height: 1.6;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      background: #0c1c2c;
+    }
+    header h1 {
+      margin: 0 0 5px;
+      color: #6dd5ed;
+    }
+    header p {
+      margin: 0;
+      opacity: 0.8;
+    }
+    .back-link {
+      display: inline-block;
+      margin: 15px auto;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .back-link:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* video in normal flow */
+    .video-container {
+      text-align: center;
+      padding: 20px;
+    }
+    .video-container video {
+      width: 80%;
+      max-width: 800px;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    /* Season & Episode selector */
+    .se-selector {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 16px;
+    }
+    .se-selector label {
+      display: flex;
+      flex-direction: column;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .se-selector select {
+      margin-top: 4px;
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      background: #1f2d3d;
+      color: #fff;
+      outline: none;
+      font-size: 14px;
+    }
+
+    /* summary below */
+    .summary {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      padding: 20px;
+      background: #1f2d3d;
+      border-radius: 10px;
+    }
+    .summary h2 {
+      margin-top: 0;
+      color: #6dd5ed;
+    }
+    .summary p {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Demon Slayer</h1>
+    <p>Episode 1</p>
+  </header>
+
+  <div style="text-align:center;">
+    <a class="back-link" href="../index.html">&larr; Back to library</a>
+  </div>
+
+  <div class="video-container">
+    <video controls>
+      <source src="../videos/demon-slayer.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+
+  <!-- Season & Episode Selector -->
+  <div class="se-selector">
+    <label>
+      Season
+      <select id="season-select">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <!-- add more seasons as needed -->
+      </select>
+    </label>
+    <label>
+      Episode
+      <select id="episode-select">
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <!-- add more episodes per season as needed -->
+      </select>
+    </label>
+  </div>
+
+  <div class="summary">
+    <h2>Summary</h2>
+    <p>
+      Tanjiro Kamado’s family is slaughtered by demons and his sister Nezuko turns into a demon.
+      Determined to avenge his family and cure his sister, Tanjiro joins the Demon Slayer Corps
+      and embarks on a perilous journey filled with fearsome foes and new allies.
+    </p>
+    <!-- add more paragraphs here if needed -->
+  </div>
+
+  <script>
+    // (Optional) You can hook into these selects to update the video/src
+    // or summary dynamically via JavaScript if you later want a single template.
+    document.getElementById('season-select').addEventListener('change', e => {
+      console.log('Selected season:', e.target.value);
+      // load new video/summary...
+    });
+    document.getElementById('episode-select').addEventListener('change', e => {
+      console.log('Selected episode:', e.target.value);
+      // load new video/summary...
+    });
+  </script>
+
+</body>
+</html>

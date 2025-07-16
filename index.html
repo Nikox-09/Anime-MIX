@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AnimeMIX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+    body { background: #0c1c2c; color: #fff; padding: 20px; }
+    header { text-align: center; margin-bottom: 20px; }
+    h1 { font-size: 2.5rem; color: #6dd5ed; margin-bottom: 10px; }
+    .banner {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto 20px;
+    }
+    .banner img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+    }
+    .controls {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 10px; margin-bottom: 20px;
+    }
+    .controls input {
+      padding: 8px 12px; border: none; border-radius: 8px;
+      font-size: 16px; width: 200px; outline: none;
+    }
+    .controls button {
+      padding: 8px 12px; border: none; border-radius: 20px;
+      background: #1f2d3d; color: #fff; cursor: pointer;
+      transition: background .2s;
+    }
+    .controls button.active,
+    .controls button:hover {
+      background: #6dd5ed; color: #0c1c2c;
+    }
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .anime-card {
+      background: #1f2d3d; border-radius: 10px; overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: transform 0.2s ease, opacity 0.2s;
+    }
+    .anime-card.hide {
+      opacity: 0; transform: scale(0.9); pointer-events: none;
+    }
+    .anime-card:hover { transform: scale(1.05); }
+    .anime-card img {
+      width: 100%; height: 260px; object-fit: cover;
+    }
+    .anime-card h3 {
+      padding: 10px; font-size: 1.1rem; text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>AnimeMIX</h1>
+    <div class="banner">
+      <img src="images/banner.jpg" alt="AnimeMIX Banner">
+    </div>
+    <p>Click an anime to view details & play full-screen.</p>
+  </header>
+
+  <div class="controls">
+    <button data-cat="all" class="active">All</button>
+    <button data-cat="action">Action</button>
+    <button data-cat="shounen">Shounen</button>
+    <button data-cat="supernatural">Supernatural</button>
+    <button data-cat="thriller">Thriller</button>
+    <input type="text" id="search" placeholder="Search anime...">
+  </div>
+
+  <section class="anime-grid" id="grid">
+    <a class="anime-card" data-title="Demon Slayer" data-cat="action supernatural" href="pages/demon-slayer.html">
+      <img src="images/demon-slayer.jpg" alt="Demon Slayer">
+      <h3>Demon Slayer</h3>
+    </a>
+    <a class="anime-card" data-title="Attack on Titan" data-cat="action thriller" href="pages/attack-on-titan.html">
+      <img src="images/attack-on-titan.jpg" alt="Attack on Titan">
+      <h3>Attack on Titan</h3>
+    </a>
+    <a class="anime-card" data-title="Jujutsu Kaisen" data-cat="action supernatural" href="pages/jujutsu-kaisen.html">
+      <img src="images/jujutsu-kaisen.jpg" alt="Jujutsu Kaisen">
+      <h3>Jujutsu Kaisen</h3>
+    </a>
+    <a class="anime-card" data-title="My Hero Academia" data-cat="action shounen" href="pages/my-hero-academia.html">
+      <img src="images/my-hero-academia.jpg" alt="My Hero Academia">
+      <h3>My Hero Academia</h3>
+    </a>
+    <a class="anime-card" data-title="Naruto" data-cat="action shounen" href="pages/naruto.html">
+      <img src="images/naruto.jpg" alt="Naruto">
+      <h3>Naruto</h3>
+    </a>
+    <a class="anime-card" data-title="One Piece" data-cat="action shounen" href="pages/one-piece.html">
+      <img src="images/one-piece.jpg" alt="One Piece">
+      <h3>One Piece</h3>
+    </a>
+    <a class="anime-card" data-title="Tokyo Ghoul" data-cat="supernatural thriller" href="pages/tokyo-ghoul.html">
+      <img src="images/tokyo-ghoul.jpg" alt="Tokyo Ghoul">
+      <h3>Tokyo Ghoul</h3>
+    </a>
+    <a class="anime-card" data-title="Death Note" data-cat="supernatural thriller" href="pages/death-note.html">
+      <img src="images/death-note.jpg" alt="Death Note">
+      <h3>Death Note</h3>
+    </a>
+    <!-- Copy any of these <a> blocks and adjust data-title, data-cat, href, and src to add more -->
+  </section>
+
+  <script>
+    // Category filter
+    const buttons = document.querySelectorAll('.controls button');
+    const cards   = document.querySelectorAll('.anime-card');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.cat;
+        cards.forEach(c => {
+          const cats = c.dataset.cat.split(' ');
+          c.classList.toggle('hide', cat !== 'all' && !cats.includes(cat));
+        });
+        document.getElementById('search').value = '';
+      });
+    });
+
+    // Live search
+    document.getElementById('search').addEventListener('input', e => {
+      const term = e.target.value.toLowerCase();
+      const activeCat = document.querySelector('.controls button.active').dataset.cat;
+      cards.forEach(c => {
+        const title = c.dataset.title.toLowerCase();
+        const cats  = c.dataset.cat.split(' ');
+        const matchesSearch = title.includes(term);
+        const matchesCat = activeCat === 'all' || cats.includes(activeCat);
+        c.classList.toggle('hide', !(matchesSearch && matchesCat));
+      });
+    });
+  </script>
+
+</body>
+</html>
